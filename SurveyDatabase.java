@@ -22,12 +22,9 @@ public class SurveyDatabase {
 	
 	int survey_id;
 	
-	
-
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		SurveyDatabase surveyDatabase = new SurveyDatabase();
 		
-
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			String dbURL = "jdbc:mysql://localhost:3309/Sabarish";
@@ -51,42 +48,43 @@ public class SurveyDatabase {
 		System.out.println("ENTER CHOICE:");
 		int choice = scanner.nextInt();
 				
-				switch (choice) {
-				case 1:
+			switch (choice) {
+				
+			case 1:
 					surveyDatabase.insertRecord();
 					break;
 					
 			case 2:
-					surveyDatabase.selectRecord();
-					break;
+				surveyDatabase.selectRecord();
+				break;
 					
 			case 3:
 				surveyDatabase.selectallrecord();
-				break;
-				
-				
+				break;				
 					
 			case 4:
-			System.out.println("Thanks for visting");
+			      System.out.println("Thanks for visting");
                   System.exit(0);
                   
-                  default:
-                	  System.out.println("Your choice is invalid");
-                	  break;
-    
+            default:
+               	  System.out.println("Your choice is invalid");
+               	  break;    
 					
 				}
 		}
-
 
 	}
 	
 	private void insertRecord() throws SQLException {
 		
 		PreparedStatement ps=connection.prepareStatement("INSERT INTO sabarish.sindhu(Username,PASSWORD,Surveyname)values (?,?,?)");
+		
 		System.out.println("********************NEW REGISTER*************************************");
+		
 		String yourname, password, surveyname;
+		
 		Scanner s = new Scanner(System.in);
+		
 		System.out.println("ENTER YOURNAME :");
 		yourname = s.nextLine();
 		ps.setString(1, yourname);
@@ -106,6 +104,7 @@ public class SurveyDatabase {
 		}
 
 	   String sql = "SELECT * FROM sabarish.sindhu WHERE Username =\""+yourname+"\"";
+	   
 	   Statement statement  = connection.createStatement();
 		
 		ResultSet result = statement.executeQuery(sql);
@@ -116,19 +115,19 @@ public class SurveyDatabase {
 			 System.out.println("");
 			 survey_id=result.getInt("SurveyId");
 			 
-			 
 		 }
-		
-		 
+				 
 		 System.out.println("Create your survey questions here");
 		 System.out.println("");
+		
 		 int question;
-		 Scanner s1 = new Scanner(System.in);
+		 
+		  Scanner s1 = new Scanner(System.in);
 		  System.out.println("How many questions do you want to create? :");
-			question = Integer.parseInt(s1.nextLine());
+		  question = Integer.parseInt(s1.nextLine());
 		  System.out.print("");
 		  
-		  Scanner s2 = new Scanner(System.in);
+		    Scanner s2 = new Scanner(System.in);
 			System.out.println("How many options do you want to create? :");
 			int option = Integer.parseInt(s2.nextLine());
 			System.out.print("");
@@ -144,10 +143,9 @@ public class SurveyDatabase {
 				 String  sol = q+qa;
 				  String poi = "";
 				 ps1.setString(1, sol);
-				  for(int j=1; j<=option; j++) {
-					  
-					   
-					  
+				  
+				 for(int j=1; j<=option; j++) {
+					  					 					  
 						Scanner s3 = new Scanner(System.in);
 					    String o="Enter option" +j +":";
 					    System.out.println(o);
@@ -155,26 +153,19 @@ public class SurveyDatabase {
 					 
 					    String finalsol=j+")"+oa;
 						System.out.print("");
-						
-						
-						 poi = poi +"       "+finalsol;
+												
+						poi = poi +"       "+finalsol;
 				        ps1.setString(2, poi);
 				        ps1.setInt(3, survey_id);
-				      
-				        
+				      				        
 				  }			  
 				 
 				  ps1.executeUpdate();
-					
-					
-		  }
-		  
-		  
+								
+		  } 
 		
 	System.out.println("----------------------------------your survey is created!------------------------------------------");
-	
-	
-					
+						
 	}
 	
 	public void selectRecord() throws SQLException{
@@ -182,8 +173,7 @@ public class SurveyDatabase {
 		System.out.println("***************** Your survey is ready*******************");
 	    System.out.println("Enter your surveyid :");
 	    
-		int surveyid = scanner.nextInt();
-		
+		int surveyid = scanner.nextInt();	
 		
 		String sql = "SELECT * FROM Sabarish.question WHERE sindhu_fkey = "+ surveyid;
 				
@@ -199,8 +189,7 @@ public class SurveyDatabase {
 			System.out.println("Enter your Answer :");
 			scanner.nextInt();
 			
-		
-		}
+			}
 		
 	}
 	
@@ -208,8 +197,6 @@ public void selectallrecord() throws SQLException{
 		
 		System.out.println("***************** Your All surveys is ready*******************");
 	  
-		
-		
 		String sql = "SELECT * FROM Sabarish.question";
 				
 		Statement Statement = connection.createStatement();
@@ -223,9 +210,6 @@ public void selectallrecord() throws SQLException{
 			System.out.println("Your id is : "+id);
 			System.out.println(question);
 			System.out.println(answer);
-		
-			
-			
 		
 		}
 		
